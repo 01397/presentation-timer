@@ -116,6 +116,8 @@ const loadSetupMenu = (secret = false) => {
     if (secretCount == 5) loadSetupMenu(true)
   })
   updateButton = h('div', { class: 'update-button' }, '更新', () => {
+    const channel = new MessageChannel()
+    navigator.serviceWorker?.controller?.postMessage('update', [channel.port2])
     location.reload(true)
   }) as HTMLDivElement
   container.append(title, updateButton, ...content)

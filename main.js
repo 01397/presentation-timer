@@ -94,6 +94,9 @@ const loadSetupMenu = (secret = false) => {
             loadSetupMenu(true);
     });
     updateButton = h('div', { class: 'update-button' }, '更新', () => {
+        var _a, _b;
+        const channel = new MessageChannel();
+        (_b = (_a = navigator.serviceWorker) === null || _a === void 0 ? void 0 : _a.controller) === null || _b === void 0 ? void 0 : _b.postMessage('update', [channel.port2]);
         location.reload(true);
     });
     container.append(title, updateButton, ...content);
