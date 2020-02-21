@@ -121,7 +121,7 @@ const task = () => {
         remaining = 0;
         isRunning = false;
         playSound(currentSetting.sound);
-        notify('時間切れw');
+        notify('時間切れ');
     }
     if (alermCount in currentSetting.alerms && remaining < currentSetting.alerms[alermCount].time) {
         const alerm = currentSetting.alerms[alermCount];
