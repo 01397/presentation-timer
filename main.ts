@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-      .register('./serviceWorker.js')
+      .register('serviceWorker.js')
       .then(registration => {
         // 登録成功
         registration.onupdatefound = function() {
