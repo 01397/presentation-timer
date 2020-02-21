@@ -8,6 +8,7 @@ body {
   height: 100%;
   overflow: hidden;
   color: #ffffee;
+  background-color: #101020;
 }
 * {
   user-select: none;
@@ -149,6 +150,17 @@ section {
 }
 .setup {
   overflow-y: auto;
+  animation: setupAnim 0.5s linear 1;
+}
+@keyframes setupAnim {
+  from {
+    opacity: 0;
+    transform: translateY(2vh);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .setup-item {
   margin: 32px 16px;
@@ -164,4 +176,19 @@ section {
 .setup-caption {
   font-size: 3vw;
   opacity: 0.5;
+}
+
+.update-button {
+  background-color: #ffffff22;
+  color: #ffffff44;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 4px 8px;
+  position: fixed;
+  top: 32px;
+  right: 16px;
+  z-index: 20;
+}
+.update-button.highlight {
+  background-color: #ff2288;
 }

@@ -45,20 +45,25 @@ let endTime = 0;
 let currentTime = 0;
 let isRunning = false;
 let alermCount = 0;
-let mainDisplay, seekbarFill, seekbarCircle, alermText, mainContainer;
+let mainDisplay, seekbarFill, seekbarCircle, alermText, mainContainer, updateButton;
 let secretCount = 0;
 let notificationTimer = 0;
 document.addEventListener('DOMContentLoaded', () => {
     if ('standalone' in window.navigator && !navigator.standalone) {
         setTimeout(() => alert('全画面で表示するには[共有ボタン]から[ホーム画面に追加]を選択します。'), 0);
     }
+    mainDisplay = document.getElementById('main-display');
+    seekbarFill = document.getElementById('main-seekbar-fill');
+    seekbarCircle = document.getElementById('main-seekbar-circle');
+    alermText = document.getElementById('main-alerm-text');
+    mainContainer = document.getElementById('main');
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker
             .register('serviceWorker.js')
             .then(registration => {
             // 登録成功
             registration.onupdatefound = function () {
-                console.log('アップデートがあります！');
+                updateButton.classList.add('highlight');
                 registration.update();
             };
         })
@@ -66,11 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // 登録失敗
         });
     }
-    mainDisplay = document.getElementById('main-display');
-    seekbarFill = document.getElementById('main-seekbar-fill');
-    seekbarCircle = document.getElementById('main-seekbar-circle');
-    alermText = document.getElementById('main-alerm-text');
-    mainContainer = document.getElementById('main');
     loadSetupMenu();
     setInterval(task, 50);
 });
@@ -93,7 +93,10 @@ const loadSetupMenu = (secret = false) => {
         if (secretCount == 5)
             loadSetupMenu(true);
     });
-    container.append(title, ...content);
+    updateButton = h('div', { class: 'update-button' }, '更新', () => {
+        location.reload(true);
+    });
+    container.append(title, updateButton, ...content);
 };
 const startTimer = (data) => {
     playSound('click');
@@ -115,7 +118,7 @@ const task = () => {
         remaining = 0;
         isRunning = false;
         playSound(currentSetting.sound);
-        notify('時間切れ');
+        notify('時間切れw');
     }
     if (alermCount in currentSetting.alerms && remaining < currentSetting.alerms[alermCount].time) {
         const alerm = currentSetting.alerms[alermCount];
