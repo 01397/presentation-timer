@@ -67,6 +67,21 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => alert('全画面で表示するには[共有ボタン]から[ホーム画面に追加]を選択します。'), 0)
   }
   setTimeout(() => alert('デモモードを使用するには、ロゴを5回タップします。'), 0)
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .register('/serviceworker.js')
+      .then(registration => {
+        // 登録成功
+        registration.onupdatefound = function() {
+          console.log('アップデートがあります！')
+          registration.update()
+        }
+      })
+      .catch(err => {
+        // 登録失敗
+      })
+  }
+
   mainDisplay = document.getElementById('main-display')!
   seekbarFill = document.getElementById('main-seekbar-fill')!
   seekbarCircle = document.getElementById('main-seekbar-circle')!
