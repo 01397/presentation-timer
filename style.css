@@ -93,6 +93,7 @@ section {
   border-radius: 100%;
   border: 2px solid #ffffff;
   opacity: 0.3;
+  z-index: 40;
 }
 .paused .main-pause,
 .finished .main-stop {
