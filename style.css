@@ -144,6 +144,8 @@ section {
   font-size: 5vw;
   font-weight: bold;
   color: #f28;
+  width: max-content;
+  margin: auto;
 }
 .setup {
   overflow-y: auto;

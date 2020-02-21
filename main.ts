@@ -61,6 +61,7 @@ let mainDisplay: HTMLElement,
   mainContainer: HTMLElement
 
 let secretCount = 0
+let notificationTimer: number = 0
 
 document.addEventListener('DOMContentLoaded', () => {
   if ('standalone' in window.navigator && !navigator.standalone) {
@@ -87,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
   alermText = document.getElementById('main-alerm-text')!
   mainContainer = document.getElementById('main')!
   loadSetupMenu()
-  setInterval(task, 100)
+  setInterval(task, 50)
 })
 const loadSetupMenu = (secret = false) => {
   const clickItem = (e: Event) => {
@@ -128,27 +129,35 @@ const startTimer = (data: Setting) => {
 const task = () => {
   mainContainer.className = 'main' + (isRunning ? '' : currentTime === 0 ? ' finished' : ' paused')
   if (!isRunning || !currentSetting || !endTime) return
-  if (currentSetting.demo) endTime -= 1000
   let remaining = (endTime - performance.now()) / 1000
+  if (currentSetting.demo && ((65 < remaining && remaining < 170) || (3 < remaining && remaining < 55))) {
+    endTime -= 1000
+  }
   if (remaining < 0) {
     remaining = 0
     isRunning = false
     playSound(currentSetting.sound)
+    notify('時間切れ')
   }
   if (alermCount in currentSetting.alerms && remaining < currentSetting.alerms[alermCount].time) {
     const alerm = currentSetting.alerms[alermCount]
     playSound(alerm.sound)
     alermCount++
-    alermText.textContent = `残り${SectoString2(alerm.time)}です`
-    setTimeout(() => {
-      alermText.textContent = ``
-    }, 5000)
+    notify(`残り${SectoString2(alerm.time)}です`)
   }
   currentTime = remaining
   const ratio = (1 - remaining / currentSetting.duration) * 100
   mainDisplay.textContent = SectoString(remaining)
   seekbarCircle.style.left = `calc(${ratio}% - 16px)`
   seekbarFill.style.width = `${ratio}%`
+}
+
+const notify = (message: string) => {
+  alermText.textContent = message
+  clearTimeout(notificationTimer)
+  notificationTimer = setTimeout(() => {
+    alermText.textContent = ``
+  }, 5000)
 }
 
 const pauseButton = () => {
