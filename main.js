@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if ('standalone' in window.navigator && !navigator.standalone) {
         setTimeout(() => alert('全画面で表示するには[共有ボタン]から[ホーム画面に追加]を選択します。'), 0);
     }
-    setTimeout(() => alert('デモモードを使用するには、ロゴを5回タップします。'), 0);
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker
             .register('./serviceWorker.js')
