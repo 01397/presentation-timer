@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => alert('デモモードを使用するには、ロゴを5回タップします。'), 0);
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker
-            .register('/serviceworker.js')
+            .register('./serviceworker.js')
             .then(registration => {
             // 登録成功
             registration.onupdatefound = function () {
