@@ -9,6 +9,10 @@ body {
   overflow: hidden;
   color: #ffffee;
 }
+* {
+  user-select: none;
+  -webkit-user-select: none;
+}
 section {
   display: none;
   position: fixed;
