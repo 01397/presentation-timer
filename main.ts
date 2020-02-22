@@ -25,11 +25,11 @@ const defaultSettings: Setting[] = [
     title: '成果発表5分',
     demo: false,
     duration: 60 * 5,
-    sound: 'se5',
+    sound: 'se3',
     alerms: [
       {
         time: 60 * 1,
-        sound: 'se3',
+        sound: 'se5',
       },
     ],
   },
@@ -37,11 +37,11 @@ const defaultSettings: Setting[] = [
     title: 'デモ用',
     demo: true,
     duration: 60 * 3,
-    sound: 'se5',
+    sound: 'se3',
     alerms: [
       {
         time: 60,
-        sound: 'se3',
+        sound: 'se5',
       },
     ],
   },
