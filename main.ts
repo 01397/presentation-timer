@@ -13,11 +13,11 @@ const defaultSettings: Setting[] = [
     title: '成果発表3分',
     demo: false,
     duration: 60 * 3,
-    sound: 'se0',
+    sound: 'se3',
     alerms: [
       {
         time: 60 * 1,
-        sound: 'se3',
+        sound: 'se5',
       },
     ],
   },
@@ -25,7 +25,7 @@ const defaultSettings: Setting[] = [
     title: '成果発表5分',
     demo: false,
     duration: 60 * 5,
-    sound: 'se0',
+    sound: 'se5',
     alerms: [
       {
         time: 60 * 1,
@@ -37,7 +37,7 @@ const defaultSettings: Setting[] = [
     title: 'デモ用',
     demo: true,
     duration: 60 * 3,
-    sound: 'se0',
+    sound: 'se5',
     alerms: [
       {
         time: 60,
@@ -117,8 +117,12 @@ const loadSetupMenu = (secret = false) => {
   })
   updateButton = h('div', { class: 'update-button' }, '更新', () => {
     const channel = new MessageChannel()
-    navigator.serviceWorker?.controller?.postMessage('update', [channel.port2])
-    location.reload(true)
+    const { port1 } = new MessageChannel()
+    port1.onmessage = event => {
+      location.reload(true)
+    }
+    const ctrl = navigator.serviceWorker?.controller!
+    ctrl.postMessage('update', [channel.port2])
   }) as HTMLDivElement
   container.append(title, updateButton, ...content)
 }
@@ -277,6 +281,9 @@ const playSound = (type: string) => {
       playTone(t0, 'triangle', 8, 0.3, 0.1)
       playTone(t0, 'triangle', 10, 0.4, 0.1)
       playTone(t0, 'triangle', 15, 0.5, 0.1)
+      break
+    case 'se5':
+      playTone(t0, 'triangle', 9, 0.0, 0.2)
       break
     // secret logo action
     case 'secret0':

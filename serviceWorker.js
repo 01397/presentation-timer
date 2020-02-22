@@ -17,4 +17,7 @@ const install = event => {
 
 self.addEventListener('fetch', event => {})
 self.addEventListener('install', install)
-self.addEventListener('message', install)
+self.addEventListener('message', event => {
+  install(event)
+  event.ports[0].postMessage('updated')
+})
