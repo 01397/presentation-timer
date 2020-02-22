@@ -1,3 +1,4 @@
+//v2
 const cacheFiles = ['./main.js', './style.css']
 
 const install = event => {
